@@ -13,6 +13,8 @@ public class Time {
 
     private static int totalTimes = 0;
 
+    private IMediatorCampeonato mediator;
+
     public Time(String nome) {
         this.nome = nome;
         this.pontos = 0;
@@ -23,6 +25,18 @@ public class Time {
         this.empates = 0;
         this.derrotas = 0;
         totalTimes++;
+    }
+
+    public void setMediator(IMediatorCampeonato mediator) {
+        this.mediator = mediator;
+    }
+
+    public void finalizarPartida(Time adversario, int meusGols, int golsAdversario) {
+        if (this.mediator != null) {
+            this.mediator.reportarResultado(this, adversario, meusGols, golsAdversario);
+        } else {
+            System.out.println("Erro: O time " + this.nome + " não está inscrito em nenhum campeonato (Sem Mediador).");
+        }
     }
 
     public void adicionarPontos(int pontos) {
@@ -48,7 +62,7 @@ public class Time {
     public void registrarDerrota() {
         this.derrotas++;
     }
-    
+
     public void setNome(String nome) {
         this.nome = nome;
     }
@@ -56,13 +70,17 @@ public class Time {
     public String getNome() {
         return nome;
     }
-    
-    public void setPontos(int pontos) {
-        this.pontos = pontos;
-    }
 
     public int getPontos() {
         return pontos;
+    }
+
+    public int getSaldoGols() {
+        return golsPro - golsContra;
+    }
+
+    public void setPontos(int pontos) {
+        this.pontos = pontos;
     }
 
     public int getGolsPro() {
@@ -71,10 +89,6 @@ public class Time {
 
     public int getGolsContra() {
         return golsContra;
-    }
-
-    public int getSaldoGols() {
-        return golsPro - golsContra;
     }
 
     public int getGolsFora() {

@@ -1,5 +1,25 @@
 package campeonato;
 
+public class Principal {
+    public static void main(String[] args) {
+        IMediatorCampeonato campeonatoMediator = new GerenciadorCampeonatoMediator();
+
+        Time timeA = new Time("Time A");
+        Time timeB = new Time("Time B");
+
+        campeonatoMediator.registrarTime(timeA);
+        campeonatoMediator.registrarTime(timeB);
+
+        timeA.finalizarPartida(timeB, 2, 1);
+
+        System.out.println("\n--- Pontuação ---");
+        System.out.println(timeA.getNome() + ": " + timeA.getPontos() + " pontos (" + timeA.getSaldoGols() + " saldo de gols)");
+        System.out.println(timeB.getNome() + ": " + timeB.getPontos() + " pontos (" + timeB.getSaldoGols() + " saldo de gols)");
+    }
+}
+
+/*package campeonato;
+
 import java.io.PrintStream;
 
 public class Principal {
@@ -204,4 +224,4 @@ public class Principal {
             campeonatoComLog.mostrarLogs();
         }
     }
-}
+}*/
